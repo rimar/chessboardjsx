@@ -3,7 +3,7 @@
 <img src="./src/img/lucena.png" alt="lucena position" width="200">
 <img src="./src/img/carlsenWorldChampionship2016.png" alt="Carlsen 2016 Championship" width="200">
 <img src="./src/img/sicilian.png" alt="sicilian defense" width="200">
-
+** Yuval Rimar was here **
 **A chessboard for React inspired by [chessboard.js](https://github.com/oakmac/chessboardjs)**
 
 [![Build Status][build-badge]][build]

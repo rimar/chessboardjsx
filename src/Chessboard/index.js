@@ -334,7 +334,7 @@ class Chessboard extends Component {
           sourcePiece,
           // Set the current position to the new position minus the targetSquare
           currentPosition: positionFromProps,
-          waitForTransition: squareClicked ? false : true,
+          waitForTransition: false,
           phantomPiece: squareClicked
             ? null
             : { [targetSquare]: currentPosition[targetSquare] },
@@ -350,7 +350,7 @@ class Chessboard extends Component {
           targetSquare,
           sourcePiece,
           currentPosition: positionFromProps,
-          waitForTransition: true,
+          waitForTransition: false,
           manualDrop: false,
           squareClicked: false,
           undoMove: true
@@ -362,7 +362,7 @@ class Chessboard extends Component {
         targetSquare,
         sourcePiece,
         currentPosition: positionFromProps,
-        waitForTransition: squareClicked ? false : true,
+        waitForTransition: false,
         manualDrop: false,
         squareClicked: false
       };

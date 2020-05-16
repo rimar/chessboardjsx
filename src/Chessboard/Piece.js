@@ -85,6 +85,8 @@ class Piece extends Component {
       this.props.isDragging ||
       // if the position comes from the position prop, check if it is a different position
       this.props.sourceSquare !== nextProps.sourceSquare ||
+      // check if it's the same piece
+      this.props.piece !== nextProps.piece ||
       // if the screen size changes then update
       this.props.width !== nextProps.width;
 

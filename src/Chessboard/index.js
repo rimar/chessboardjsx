@@ -216,7 +216,6 @@ class Chessboard extends Component {
     targetSquare: '',
     sourcePiece: '',
     waitForTransition: false,
-    phantomPiece: null,
     wasPieceTouched: false,
     manualDrop: false,
     squareClicked: false,
@@ -256,23 +255,6 @@ class Chessboard extends Component {
 
       // get board position for user
       getPosition(positionFromProps);
-
-      // Give piece time to transition.
-      if (waitForTransition) {
-        return new Promise(resolve => {
-          this.setState({ currentPosition: positionFromProps }, () =>
-            setTimeout(() => {
-              this.setState({ waitForTransition: false });
-              resolve();
-            }, transitionDuration)
-          );
-        }).then(() =>
-          setTimeout(
-            () => this.setState({ phantomPiece: null }),
-            transitionDuration
-          )
-        );
-      }
     }
   }
 
@@ -335,9 +317,6 @@ class Chessboard extends Component {
           // Set the current position to the new position minus the targetSquare
           currentPosition: positionFromProps,
           waitForTransition: false,
-          phantomPiece: squareClicked
-            ? null
-            : { [targetSquare]: currentPosition[targetSquare] },
           manualDrop: false,
           squareClicked: false
         };
@@ -418,7 +397,6 @@ class Chessboard extends Component {
       targetSquare,
       sourcePiece,
       waitForTransition,
-      phantomPiece,
       wasPieceTouched,
       currentPosition,
       manualDrop,
@@ -443,7 +421,6 @@ class Chessboard extends Component {
               targetSquare,
               sourcePiece,
               waitForTransition,
-              phantomPiece,
               setPosition: this.setPosition,
               manualDrop,
               setTouchState: this.setTouchState,

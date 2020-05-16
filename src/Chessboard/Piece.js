@@ -21,8 +21,10 @@ export const renderChessPiece = ({
   onPieceClick,
   allowDrag,
   customDragLayerStyles = {},
-  phantomPieceStyles = {}
 }) => {
+  if (targetSquare == "d7")
+    debugger
+
   const renderChessPieceArgs = {
     squareWidth: width / 8,
     isDragging,
@@ -48,7 +50,6 @@ export const renderChessPiece = ({
           piece,
           allowDrag
         }),
-        ...phantomPieceStyles,
         ...customDragLayerStyles
       }}
     >
@@ -232,6 +233,7 @@ const getTransitionCoordinates = ({
   sourceSq,
   targetSq
 }) => {
+  debugger
   const transitionCoordinates = getSquareCoordinates(sourceSq, targetSq);
   const { sourceSquare, targetSquare } = transitionCoordinates;
 
@@ -246,6 +248,7 @@ const getTranslation = ({
   sourceSquare,
   getSquareCoordinates
 }) => {
+  debugger
   return (
     isActivePiece(square, targetSquare) &&
     waitForTransition &&
@@ -265,12 +268,12 @@ const pieceStyles = ({
   targetSquare,
   sourceSquare,
   getSquareCoordinates,
-  getTranslation,
+  getTranslation: getTransition,
   piece,
   allowDrag
 }) => ({
   opacity: isDragging ? 0 : 1,
-  transform: getTranslation({
+  transform: () => getTransition({
     waitForTransition,
     square,
     targetSquare,

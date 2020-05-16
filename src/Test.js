@@ -10,15 +10,15 @@ class Test extends Component {
     }
 
     p1 = () => {
-        this.setState({fen: "rnbqkbnr/ppp1pppp/8/3p4/3PP3/8/PPP2PPP/RNBQKBNR b KQkq e3 0 2"})
+        this.setState({fen: "3rkb1r/p2nqppp/5n2/1B2p1B1/4P3/1Q6/PPP2PPP/2KR3R w k - 3 13"})
     }
 
     p2 = () => {
-        this.setState({fen: "rnbqkbnr/ppp2ppp/8/3pp3/3PP3/8/PPP2PPP/RNBQKBNR w KQkq e6 0 3"})
+        this.setState({fen: "3rkb1r/p2Rqppp/5n2/1B2p1B1/4P3/1Q6/PPP2PPP/2K4R b k - 0 13"})
     }
 
     p3 = () => {
-        this.setState({fen: "start"})
+        this.setState({fen: "4kb1r/p2rqppp/5n2/1B2p1B1/4P3/1Q6/PPP2PPP/2K4R w k - 0 14"})
     }
 
 

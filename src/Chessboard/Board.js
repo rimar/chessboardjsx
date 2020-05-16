@@ -4,7 +4,6 @@ import Piece from './Piece';
 import Square from './Square';
 import Notation from './Notation';
 import Chessboard from './index';
-import PhantomPiece from './PhantomPiece';
 import Row from './Row';
 
 class Board extends Component {
@@ -15,17 +14,6 @@ class Board extends Component {
     sourceSquare: this.state[sourceSquare],
     targetSquare: this.state[targetSquare]
   });
-
-  showPhantom = ({ square, targetSquare, phantomPiece }) => {
-    const isActivePiece = (square, targetSquare) =>
-      targetSquare && targetSquare === square;
-
-    return (
-      phantomPiece &&
-      phantomPiece[targetSquare] &&
-      isActivePiece(square, targetSquare)
-    );
-  };
 
   hasPiece = (currentPosition, square) =>
     currentPosition &&
@@ -85,28 +73,12 @@ class Board extends Component {
                         id={context.id}
                         setTouchState={context.setTouchState}
                         wasManuallyDropped={context.wasManuallyDropped}
-                        phantomPiece={context.phantomPiece}
                         onPieceClick={context.onPieceClick}
                         wasSquareClicked={context.wasSquareClicked}
                         allowDrag={context.allowDrag}
                       />
                     ) : null}
 
-                    {this.showPhantom({
-                      square,
-                      targetSquare: context.targetSquare,
-                      phantomPiece: context.phantomPiece
-                    }) && (
-                      <PhantomPiece
-                        width={context.width}
-                        phantomPieceValue={
-                          context.phantomPiece[context.targetSquare]
-                        }
-                        pieces={context.pieces}
-                        showNotation={context.showNotation}
-                        allowDrag={context.allowDrag}
-                      />
-                    )}
 
                     {context.showNotation && (
                       <Notation

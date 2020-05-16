@@ -55,7 +55,6 @@ export default function RandomVsRandomGame() {
             calcWidth={({ screenWidth }) => (screenWidth < 500 ? 350 : 480)}
             id="random"
             position={position}
-            transitionDuration={300}
             boardStyle={{
               borderRadius: '5px',
               boxShadow: `0 5px 15px rgba(0, 0, 0, 0.5)`

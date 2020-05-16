@@ -10,20 +10,16 @@ export const renderChessPiece = ({
   dropTarget,
   square,
   targetSquare,
-  waitForTransition,
   getSquareCoordinates,
   piece,
   width,
   pieces,
-  transitionDuration,
   isDragging,
   sourceSquare,
   onPieceClick,
   allowDrag,
   customDragLayerStyles = {},
 }) => {
-  if (targetSquare == "d7")
-    debugger
 
   const renderChessPieceArgs = {
     squareWidth: width / 8,
@@ -40,13 +36,10 @@ export const renderChessPiece = ({
       style={{
         ...pieceStyles({
           isDragging,
-          transitionDuration,
-          waitForTransition,
           square,
           targetSquare,
           sourceSquare,
           getSquareCoordinates,
-          getTranslation,
           piece,
           allowDrag
         }),
@@ -76,11 +69,9 @@ class Piece extends Component {
     dropOffBoard: PropTypes.string,
     getSquareCoordinates: PropTypes.func,
     onDrop: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-    transitionDuration: PropTypes.number,
     pieces: PropTypes.object,
     sourceSquare: PropTypes.string,
     targetSquare: PropTypes.string,
-    waitForTransition: PropTypes.bool,
     setTouchState: PropTypes.func,
     onPieceClick: PropTypes.func,
     wasSquareClicked: PropTypes.func,
@@ -94,7 +85,6 @@ class Piece extends Component {
       this.props.isDragging ||
       // if the position comes from the position prop, check if it is a different position
       this.props.sourceSquare !== nextProps.sourceSquare ||
-      this.props.waitForTransition !== nextProps.waitForTransition ||
       // if the screen size changes then update
       this.props.width !== nextProps.width;
 
@@ -120,12 +110,10 @@ class Piece extends Component {
     const {
       square,
       targetSquare,
-      waitForTransition,
       getSquareCoordinates,
       piece,
       width,
       pieces,
-      transitionDuration,
       isDragging,
       connectDragSource,
       sourceSquare,
@@ -138,12 +126,10 @@ class Piece extends Component {
       renderChessPiece({
         square,
         targetSquare,
-        waitForTransition,
         getSquareCoordinates,
         piece,
         width,
         pieces,
-        transitionDuration,
         isDragging,
         sourceSquare,
         dropTarget,
@@ -225,62 +211,14 @@ function collect(connect, monitor) {
 
 export default DragSource(ItemTypes.PIECE, pieceSource, collect)(Piece);
 
-const isActivePiece = (square, targetSquare) =>
-  targetSquare && targetSquare === square;
-
-const getTransitionCoordinates = ({
-  getSquareCoordinates,
-  sourceSq,
-  targetSq
-}) => {
-  debugger
-  const transitionCoordinates = getSquareCoordinates(sourceSq, targetSq);
-  const { sourceSquare, targetSquare } = transitionCoordinates;
-
-  return `translate(${sourceSquare.x - targetSquare.x}px, ${sourceSquare.y -
-    targetSquare.y}px)`;
-};
-
-const getTranslation = ({
-  waitForTransition,
-  square,
-  targetSquare,
-  sourceSquare,
-  getSquareCoordinates
-}) => {
-  debugger
-  return (
-    isActivePiece(square, targetSquare) &&
-    waitForTransition &&
-    getTransitionCoordinates({
-      getSquareCoordinates,
-      sourceSq: sourceSquare,
-      targetSq: targetSquare
-    })
-  );
-};
 
 const pieceStyles = ({
   isDragging,
-  transitionDuration,
-  waitForTransition,
   square,
-  targetSquare,
-  sourceSquare,
-  getSquareCoordinates,
-  getTranslation: getTransition,
   piece,
   allowDrag
 }) => ({
   opacity: isDragging ? 0 : 1,
-  transform: () => getTransition({
-    waitForTransition,
-    square,
-    targetSquare,
-    sourceSquare,
-    getSquareCoordinates
-  }),
-  transition: `transform ${transitionDuration}ms`,
   zIndex: 5,
   cursor: isDragging
     ? '-webkit-grabbing'

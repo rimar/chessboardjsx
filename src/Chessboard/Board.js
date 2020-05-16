@@ -67,8 +67,6 @@ class Board extends Component {
                         onDrop={context.onDrop}
                         sourceSquare={context.sourceSquare}
                         targetSquare={context.targetSquare}
-                        waitForTransition={context.waitForTransition}
-                        transitionDuration={context.transitionDuration}
                         orientation={context.orientation}
                         id={context.id}
                         setTouchState={context.setTouchState}

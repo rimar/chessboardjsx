@@ -39,7 +39,6 @@ interface Props {
   showNotation?: boolean,
   sparePieces?: boolean,
   squareStyles?: {[square in Square]?: CSSProperties},
-  transitionDuration?: number,
   width?: number,
   undo?: boolean,
 }

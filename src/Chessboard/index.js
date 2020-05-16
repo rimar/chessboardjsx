@@ -74,11 +74,6 @@ class Chessboard extends Component {
      */
     dropOffBoard: PropTypes.oneOf(['snapback', 'trash']),
     /**
-     * The time it takes for a piece to slide to the target square.  Only used
-     * when the next position comes from the position prop. See chessboardjsx.com/integrations/random for an example
-     */
-    transitionDuration: PropTypes.number,
-    /**
      * The style object for the board.
      */
     boardStyle: PropTypes.object,
@@ -188,7 +183,6 @@ class Chessboard extends Component {
     draggable: true,
     undo: false,
     dropOffBoard: 'snapback',
-    transitionDuration: 300,
     boardStyle: {},
     lightSquareStyle: { backgroundColor: 'rgb(240, 217, 181)' },
     darkSquareStyle: { backgroundColor: 'rgb(181, 136, 99)' },
@@ -215,7 +209,6 @@ class Chessboard extends Component {
     sourceSquare: '',
     targetSquare: '',
     sourcePiece: '',
-    waitForTransition: false,
     wasPieceTouched: false,
     manualDrop: false,
     squareClicked: false,
@@ -241,8 +234,8 @@ class Chessboard extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    const { position, transitionDuration, getPosition } = this.props;
-    const { waitForTransition, undoMove } = this.state;
+    const { position, getPosition } = this.props;
+    const { undoMove } = this.state;
     const positionFromProps = getPositionObject(position);
     const previousPositionFromProps = getPositionObject(prevProps.position);
 
@@ -264,7 +257,6 @@ class Chessboard extends Component {
       currentPosition,
       previousPositionFromProps,
       manualDrop,
-      squareClicked
     } = state;
     let positionFromProps = getPositionObject(position);
 
@@ -287,17 +279,15 @@ class Chessboard extends Component {
           targetSquare,
           sourcePiece,
           currentPosition: positionFromProps,
-          waitForTransition: false,
           manualDrop: false
         };
       }
 
       /* If the new position involves many pieces, then disregard the transition effect.
         Possible to add functionality for transitioning of multiple pieces later */
-      if (squaresAffected && squaresAffected !== 2) {
+      if (squaresAffected) {
         return {
           currentPosition: positionFromProps,
-          waitForTransition: false,
           manualDrop: false,
           sourceSquare,
           targetSquare,
@@ -316,7 +306,6 @@ class Chessboard extends Component {
           sourcePiece,
           // Set the current position to the new position minus the targetSquare
           currentPosition: positionFromProps,
-          waitForTransition: false,
           manualDrop: false,
           squareClicked: false
         };
@@ -329,7 +318,6 @@ class Chessboard extends Component {
           targetSquare,
           sourcePiece,
           currentPosition: positionFromProps,
-          waitForTransition: false,
           manualDrop: false,
           squareClicked: false,
           undoMove: true
@@ -341,7 +329,6 @@ class Chessboard extends Component {
         targetSquare,
         sourcePiece,
         currentPosition: positionFromProps,
-        waitForTransition: false,
         manualDrop: false,
         squareClicked: false
       };
@@ -396,7 +383,6 @@ class Chessboard extends Component {
       sourceSquare,
       targetSquare,
       sourcePiece,
-      waitForTransition,
       wasPieceTouched,
       currentPosition,
       manualDrop,
@@ -420,7 +406,6 @@ class Chessboard extends Component {
               sourceSquare,
               targetSquare,
               sourcePiece,
-              waitForTransition,
               setPosition: this.setPosition,
               manualDrop,
               setTouchState: this.setTouchState,

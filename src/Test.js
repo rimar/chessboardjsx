@@ -27,7 +27,7 @@ class Test extends Component {
 
       return (
       <div>
-          <Chessboard position={this.state.fen} transitionDuration={0}/>
+          <Chessboard position={this.state.fen}/>
           <button onClick={this.p1}>p1</button>
           <button onClick={this.p2}>p2</button>
           <button onClick={this.p3}>p3</button>
